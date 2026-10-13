@@ -17,6 +17,14 @@ jobs:
             Write-Host "LOCAL_DEV_TOKEN está disponible"
           }
 
+      - name: Diagnosticar variable local
+        shell: powershell
+        run: |
+          $machine = [Environment]::GetEnvironmentVariable("LOCAL_DEV_TOKEN", "Machine")
+          Write-Host "Variable del runner correcta: $($env:LOCAL_DEV_TOKEN -ceq 'prueba-local-distinta-789')"
+          Write-Host "Variable del sistema correcta: $($machine -ceq 'prueba-local-distinta-789')"
+          Write-Host "Runner y sistema coinciden: $($env:LOCAL_DEV_TOKEN -ceq $machine)"
+
       - name: Comparar tokens
         shell: powershell
         env:
