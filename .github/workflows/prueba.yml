@@ -21,9 +21,9 @@ jobs:
         shell: powershell
         run: |
           $machine = [Environment]::GetEnvironmentVariable("LOCAL_DEV_TOKEN", "Machine")
-          Write-Host "Variable del runner correcta: $($env:LOCAL_DEV_TOKEN -ceq 'prueba-local-distinta-789')"
-          Write-Host "Variable del sistema correcta: $($machine -ceq 'prueba-local-distinta-789')"
-          Write-Host "Runner y sistema coinciden: $($env:LOCAL_DEV_TOKEN -ceq $machine)"
+          Write-Host "Variable del proceso vacía: $([string]::IsNullOrEmpty($env:LOCAL_DEV_TOKEN))"
+          Write-Host "Variable del sistema vacía: $([string]::IsNullOrEmpty($machine))"
+          Write-Host "Proceso y sistema coinciden: $($env:LOCAL_DEV_TOKEN -ceq $machine)"
 
       - name: Comparar tokens
         shell: powershell
