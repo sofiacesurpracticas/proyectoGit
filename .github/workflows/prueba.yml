@@ -24,6 +24,7 @@ jobs:
           Write-Host "Variable del proceso vacía: $([string]::IsNullOrEmpty($env:LOCAL_DEV_TOKEN))"
           Write-Host "Variable del sistema vacía: $([string]::IsNullOrEmpty($machine))"
           Write-Host "Proceso y sistema coinciden: $($env:LOCAL_DEV_TOKEN -ceq $machine)"
+          Write-Host "Runner usa el valor esperado: $($env:LOCAL_DEV_TOKEN -ceq 'dev-practica-998')"
 
       - name: Comparar tokens
         shell: powershell
