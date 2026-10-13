@@ -7,33 +7,29 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Comparar tokens
-        shell: powershell
-        env:
-          DEV_TOKEN: ${{ secrets.DEV_TOKEN }}
-        run: |
-          if ($null -eq $env:DEV_TOKEN -or $env:DEV_TOKEN.Length -eq 0) {
-            Write-Host "ERROR: DEV_TOKEN no está disponible"
-            exit 1
-          } elseif ($env:DEV_TOKEN -ceq $env:LOCAL_DEV_TOKEN) {
-            Write-Host "CORRECTO: los tokens coinciden"
-          } else {
-            Write-Host "ERROR: los tokens no coinciden"
-            exit 1
-          }
-
-      # Segunda prueba del workflow
       - name: Comprobar variable local
         shell: powershell
         run: |
           if ([string]::IsNullOrEmpty($env:LOCAL_DEV_TOKEN)) {
-            Write-Host "LOCAL_DEV_TOKEN no está disponible"
+            Write-Host "ERROR: LOCAL_DEV_TOKEN no está disponible"
             exit 1
           } else {
             Write-Host "LOCAL_DEV_TOKEN está disponible"
           }
 
-# Prueba con tokens diferentes
+      - name: Comparar tokens
+        shell: powershell
+        env:
+          DEV_TOKEN: ${{ secrets.DEV_TOKEN }}
+        run: |
+          if ([string]::IsNullOrEmpty($env:DEV_TOKEN)) {
+            Write-Host "ERROR: DEV_TOKEN no está disponible"
+            exit 1
+          }
 
-#Ns qué esté pasando
-#X2
+          if ($env:DEV_TOKEN -ceq $env:LOCAL_DEV_TOKEN) {
+            Write-Host "CORRECTO: los tokens coinciden"
+          } else {
+            Write-Host "ERROR: los tokens no coinciden"
+            exit 1
+          }
