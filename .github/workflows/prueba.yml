@@ -12,7 +12,10 @@ jobs:
         env:
           DEV_TOKEN: ${{ secrets.DEV_TOKEN }}
         run: |
-          if ($env:DEV_TOKEN -ceq $env:LOCAL_DEV_TOKEN) {
+          if ($null -eq $env:DEV_TOKEN -or $env:DEV_TOKEN.Length -eq 0) {
+            Write-Host "ERROR: DEV_TOKEN no está disponible"
+            exit 1
+          } elseif ($env:DEV_TOKEN -ceq $env:LOCAL_DEV_TOKEN) {
             Write-Host "CORRECTO: los tokens coinciden"
           } else {
             Write-Host "ERROR: los tokens no coinciden"
