@@ -33,6 +33,7 @@ jobs:
           git add README.md
           if ! git diff --cached --quiet; then
             git commit -m "Actualizar README desde CI"
+            git pull --rebase origin develop
             git push origin HEAD:develop
           fi
 
